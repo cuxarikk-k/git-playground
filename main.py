@@ -7,6 +7,10 @@ def congratulate_user():
     print(f"= Congratulations! You won! your words: {guesses} =")
     print("=============================")
 
+def display_loss_message():
+    print("=============================")
+    print(f"= Oops! You lost the game! your words: {guesses}=")
+    print("=============================")
 
 def is_game_over():
     return guessed == WORDS_TO_WIN or errors == ERRORS_TO_LOSE
@@ -46,6 +50,10 @@ while not is_game_over():
     if not guess_is_valid(guess):
         continue
 
+    if guess in guesses:
+        print(f"You've already guessed the word '{guess}'. Try again!")
+        continue
+
     if guess in full_list:
         guessed += 1
         guesses.append(guess)
@@ -56,3 +64,6 @@ while not is_game_over():
     else:
         errors += 1
         print(f"Oops :( No such word, you have {ERRORS_TO_LOSE - errors} lives more")
+
+if errors == ERRORS_TO_LOSE:
+    display_loss_message()
